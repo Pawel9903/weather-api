@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PHP Tests
 
 on: [push]
 
@@ -6,12 +6,26 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 3
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.4']
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+      - name: Install Dependencies (PHP vendors)
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
-    # - name: Run test suite
-    #   run: composer run-script test
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+          extensions: mbstring, intl #optional, setup extensions
+          ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+          coverage: xdebug #optional, setup coverage driver
+          pecl: false #optional, setup PECL
+
+      - name: Run unit test suite
+        run: vendor/bin/codecept run unit
