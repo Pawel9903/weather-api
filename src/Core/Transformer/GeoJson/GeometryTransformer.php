@@ -19,7 +19,7 @@ class GeometryTransformer extends Transformer
      */
     public function transform($data, array $context = []): Geometry
     {
-        $model = $context[self::INSTANCE] instanceof Geometry? $context[self::INSTANCE] : new Geometry();
+        $model = $context[self::INSTANCE]?? new Geometry();
         $this->setProps($model, $data);
         return $model;
     }
@@ -42,7 +42,7 @@ class GeometryTransformer extends Transformer
     private function setPropsByArray(Geometry $model, array $data): void
     {
         $model
-            ->setLat(!empty($data['lat'])? $data['lat'] : 0)
-            ->setLon(!empty($data['lon'])? $data['lon'] : 0);
+            ->setLat(!empty($data['lat'])? (float)$data['lat'] : 0)
+            ->setLon(!empty($data['lon'])? (float)$data['lon'] : 0);
     }
 }

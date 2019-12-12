@@ -22,10 +22,8 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-          extensions: mbstring, intl #optional, setup extensions
-          ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
-          coverage: xdebug #optional, setup coverage driver
-          pecl: false #optional, setup PECL
+          extensions: mbstring, intl
+          coverage: xdebug
 
       - name: Run unit test suite
         run: vendor/bin/codecept run unit

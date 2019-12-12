@@ -33,7 +33,7 @@ class GeoJsonTransformer extends Transformer
      */
     public function transform($data, array $context = []): GeoJson
     {
-        $model = $context[self::INSTANCE] instanceof GeoJson? $context[self::INSTANCE] : new GeoJson();
+        $model = $context[self::INSTANCE]?? new GeoJson();
         $this->setObjectProps($model, $data);
         return $model;
     }
