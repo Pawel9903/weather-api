@@ -29,4 +29,4 @@ jobs:
         run: vendor/bin/codecept run unit
 
       - name: Run api test suite
-          run: vendor/bin/codecept run api
+        run: vendor/bin/codecept run api
