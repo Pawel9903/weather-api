@@ -2,11 +2,12 @@
 
 namespace App\Weather\Dao;
 
+use App\Core\Dao\DaoSelectDataInterface;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
 
-class StationDao
+class StationDao implements DaoSelectDataInterface
 {
     /**
      * @var StationCurl
@@ -32,17 +33,25 @@ class StationDao
     /**
      * @return Station[]
      */
-    public function stations(): array
+    public function getData(): array
     {
         $data = $this->curl->stations();
         return array_map([$this->transformer, 'transform'], $data);
     }
 
     /**
-     * @return array
+     * @param Station[] $collection
+     * @param array $filter
+     * @return Station[]
      */
-    public function stationSelect(): array
+    public function setSelectDataFilters(array $collection, array $filter = []): array
     {
+        if(!empty($filter['city'])) {
+            $collection = array_filter($collection, function (Station $model) use ($filter) {
+                return $model->getCity()->getName() === $filter['city'];
+            });
+        }
 
+        return $collection;
     }
 }

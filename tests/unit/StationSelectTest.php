@@ -11,17 +11,19 @@ use App\Core\Transformer\GeoJson\GeometryTransformer;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Dao\StationDao;
 use App\Weather\Model\Station\Station;
+use App\Weather\Select\StationSelect;
 use App\Weather\Transformer\Station\StationTransformer;
 use Codeception\Test\Unit;
 use Mockery;
+use Symfony\Component\HttpFoundation\Request;
 use UnitTester;
 
 /**
- * Class StationDaoTest
+ * Class StationSelectTest
  * @package tests\unit
  * @author Pawel Ged <pawelged9903@gmail.com>
  */
-class StationDaoTest extends Unit
+class StationSelectTest extends Unit
 {
     /**
      * @var UnitTester
@@ -31,17 +33,33 @@ class StationDaoTest extends Unit
     /**
      * @var StationCurl|Mockery\LegacyMockInterface|Mockery\MockInterface
      */
-    private StationCurl $curl;
+    private $curl;
 
     /**
      * @var StationDao
      */
     private StationDao $dao;
 
+    /**
+     * @var StationSelect
+     */
+    private StationSelect $select;
+
+    /**
+     * @var Mockery\LegacyMockInterface|Mockery\MockInterface|Request
+     */
+    private Request $request;
+
+    /**
+     * @throws \Exception
+     */
     protected function _before()
     {
         $this->curl = Mockery::mock(StationCurl::class);
+        $this->request = Mockery::mock(Request::class);
         $this->dao = new StationDao(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
+        $this->select = new StationSelect($this->dao);
+
     }
 
     protected function _after()
@@ -52,32 +70,51 @@ class StationDaoTest extends Unit
     /**
      * @return void
      */
-    public function testWhenCallStationsMethodWithFullArrayDataGetStationModelCollection(): void
+    public function testWhenCallStationsSelectDataMethodGetFilteredSelectDataCollection(): void
     {
-        $this->curl->shouldReceive('stations')->withNoArgs()->once()->andReturn($this->mockWeatherApiArray());
+        $this->curl
+            ->shouldReceive('stations')
+            ->withNoArgs()
+            ->once()
+            ->andReturn($this->mockWeatherApiArray());
 
-        $result = $this->dao->getData();
+        $this->request
+            ->shouldReceive('get')
+            ->with('filter')
+            ->once()
+            ->andReturn(['city' => 'Wrocław']);
+
+        $this->select->setRequest($this->request);
+        $result = $this->select->select();
 
         $this->assertIsArray($result);
-        $this->assertCount(count($this->mockWeatherApiArray()), $result);
-        $this->assertInstanceOf(Station::class, reset($result));
-        $this->assertInstanceOf(GeoJson::class, reset($result)->getCoords());
-        $this->assertInstanceOf(Geometry::class, reset($result)->getCoords()->getGeometry());
-        $this->assertSame((float)$this->mockWeatherApiArray()[0]['gegrLat'], reset($result)->getCoords()->getGeometry()->getLat());
+        $this->assertCount(2, reset($result));
+        $this->assertArrayHasKey('value', reset($result));
     }
 
     /**
      * @return void
      */
-    public function testWhenCallStationsMethodWithEmptyArrayDataGetEmptyArray(): void
+    public function testWhenCallStationsSelectDataMethodWithBadFilterKeyEmptyArrayGetEmptyArray(): void
     {
-        $this->curl->shouldReceive('stations')->withNoArgs()->once()->andReturn([]);
+        $this->curl
+            ->shouldReceive('stations')
+            ->withNoArgs()
+            ->once()
+            ->andReturn([]);
 
-        $result = $this->dao->getData();
+        $this->request
+            ->shouldReceive('get')
+            ->with('filter')
+            ->once()
+            ->andReturn(['city' => 'example']);
+
+        $this->select->setRequest($this->request);
+        $result = $this->select->select();
 
         $this->assertIsArray($result);
         $this->assertEmpty($result);
-     }
+    }
 
     /**
      * @return array
@@ -107,18 +144,18 @@ class StationDaoTest extends Unit
             1 =>
                 array (
                     'id' => 117,
-                    'stationName' => 'Wrocław - Korzeniowskiego',
+                    'stationName' => 'Poznań - Korzeniowskiego',
                     'gegrLat' => '51.129378',
                     'gegrLon' => '17.029250',
                     'city' =>
                         array (
                             'id' => 1064,
-                            'name' => 'Wrocław',
+                            'name' => 'Poznań',
                             'commune' =>
                                 array (
-                                    'communeName' => 'Wrocław',
-                                    'districtName' => 'Wrocław',
-                                    'provinceName' => 'DOLNOŚLĄSKIE',
+                                    'communeName' => 'Poznań',
+                                    'districtName' => 'Poznań',
+                                    'provinceName' => 'WIELKOPOLSKIE',
                                 ),
                         ),
                     'addressStreet' => 'ul. Wyb. J.Conrada-Korzeniowskiego 18',
