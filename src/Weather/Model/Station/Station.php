@@ -2,6 +2,7 @@
 
 namespace App\Weather\Model\Station;
 
+use App\Core\Model\Address\City;
 use App\Core\Model\GeoJson\GeoJson;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -35,8 +36,17 @@ class Station
 
     /**
      * @var GeoJson
+     * @Serializer\Type("object")
+     * @Serializer\Groups("min", "max")
      */
     private GeoJson $coords;
+
+    /**
+     * @var City
+     * @Serializer\Type("object")
+     * @Serializer\Groups("min", "max")
+     */
+    private City $city;
 
     /**
      * @return int
@@ -107,6 +117,24 @@ class Station
     public function setCoords(GeoJson $coords): self
     {
         $this->coords = $coords;
+        return $this;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity(): City
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     * @return $this
+     */
+    public function setCity(City $city): self
+    {
+        $this->city = $city;
         return $this;
     }
 }

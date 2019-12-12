@@ -2,6 +2,7 @@
 
 namespace App\Weather\Transformer\Station;
 
+use App\Core\Transformer\Address\CityTransformer;
 use App\Core\Transformer\GeoJson\GeoJsonTransformer;
 use App\Core\Transformer\Transformer;
 use App\Weather\Model\Station\Station;
@@ -20,12 +21,19 @@ class StationTransformer extends Transformer
     private GeoJsonTransformer $geoJsonTransformer;
 
     /**
+     * @var CityTransformer
+     */
+    private CityTransformer $cityTransformer;
+
+    /**
      * StationTransformer constructor.
      * @param GeoJsonTransformer $geoJsonTransformer
+     * @param CityTransformer $cityTransformer
      */
-    public function __construct(GeoJsonTransformer $geoJsonTransformer)
+    public function __construct(GeoJsonTransformer $geoJsonTransformer, CityTransformer $cityTransformer)
     {
         $this->geoJsonTransformer = $geoJsonTransformer;
+        $this->cityTransformer = $cityTransformer;
     }
 
     /**
@@ -75,6 +83,7 @@ class StationTransformer extends Transformer
         $data['lon'] = !empty($data['gegrLon'])? $data['gegrLon'] : 0;
 
         $coords = $this->geoJsonTransformer->transform($data);
-        $model->setCoords($coords);
+        $city = $this->cityTransformer->transform($data['city']?? []);
+        $model->setCoords($coords)->setCity($city);
     }
 }

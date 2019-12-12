@@ -4,6 +4,8 @@ namespace tests\unit;
 
 use App\Core\Model\GeoJson\GeoJson;
 use App\Core\Model\GeoJson\Geometry;
+use App\Core\Transformer\Address\CityTransformer;
+use App\Core\Transformer\Address\CommuneTransformer;
 use App\Core\Transformer\GeoJson\GeoJsonTransformer;
 use App\Core\Transformer\GeoJson\GeometryTransformer;
 use App\Weather\Curl\StationCurl;
@@ -39,7 +41,7 @@ class StationDaoTest extends Unit
     protected function _before()
     {
         $this->curl = Mockery::mock(StationCurl::class);
-        $this->dao = new StationDao(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer())), $this->curl);
+        $this->dao = new StationDao(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
     }
 
     protected function _after()

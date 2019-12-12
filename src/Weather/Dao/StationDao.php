@@ -37,4 +37,12 @@ class StationDao
         $data = $this->curl->stations();
         return array_map([$this->transformer, 'transform'], $data);
     }
+
+    /**
+     * @return array
+     */
+    public function stationSelect(): array
+    {
+
+    }
 }

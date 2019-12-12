@@ -20,6 +20,8 @@ class GeoJson
 
     /**
      * @var Geometry
+     * @Serializer\Type("object")
+     * @Serializer\Groups("min", "max")
      */
     private Geometry $geometry;
 
