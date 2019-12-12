@@ -39,9 +39,9 @@ abstract class Curl
     /**
      * @param string $urlLastPart
      * @param array $params
-     * @return string
+     * @return array
      */
-    public function get(string $urlLastPart = '', array $params = [])
+    public function get(string $urlLastPart = '', array $params = []): array
     {
         $this->curl->get($this->generateUrl($urlLastPart), $params);
         return $this->response();
@@ -56,11 +56,11 @@ abstract class Curl
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function response()
+    public function response(): array
     {
-        return $this->curl->getResponse();
+        return json_decode($this->curl->getResponse())?? [];
     }
 
     /**

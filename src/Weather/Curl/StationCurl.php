@@ -20,13 +20,13 @@ class StationCurl extends Curl
     public function __construct(CurlService $curl)
     {
         parent::__construct($curl);
-        $this->setBasicUrl('http://api.gios.gov.pl/pjp-api/rest', WeatherPrefixEnum::STATION_PREFIX);
+        $this->setBasicUrl('http://api.gios.gov.pl', WeatherPrefixEnum::STATION_PREFIX);
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function stations()
+    public function stations(): array
     {
         return $this->get('findAll');
     }
