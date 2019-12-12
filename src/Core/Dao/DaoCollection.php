@@ -50,4 +50,15 @@ abstract class DaoCollection
     {
         $this->request = $request;
     }
+
+    /**
+     * @return array
+     */
+    public function getResponse(): array
+    {
+        $data = $this->getFilteredData();
+        return ['data' => $data, 'count' => count($data)];
+    }
+
+    abstract protected function getFilteredData(): array;
 }

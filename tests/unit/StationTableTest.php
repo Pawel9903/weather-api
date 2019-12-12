@@ -2,14 +2,12 @@
 
 namespace tests\unit;
 
-use App\Core\Dao\Table\TableInterface;
 use App\Core\Transformer\Address\CityTransformer;
 use App\Core\Transformer\Address\CommuneTransformer;
 use App\Core\Transformer\GeoJson\GeoJsonTransformer;
 use App\Core\Transformer\GeoJson\GeometryTransformer;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Dao\StationDaoCollection;
-use App\Weather\Dao\Select\StationSelect;
 use App\Weather\Dao\Table\StationTable;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
@@ -84,10 +82,12 @@ class StationTableTest extends Unit
             ->andReturn(['city' => 'Wrocław']);
 
         $this->table->setRequest($this->request);
-        $result = $this->table->getData();
+        $result = $this->table->getResponse();
+
+        $data = $result['data'];
 
         $this->assertIsArray($result);
-        $this->assertInstanceOf(Station::class, reset($result));
+        $this->assertInstanceOf(Station::class, reset($data));
     }
 
     /**

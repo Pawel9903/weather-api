@@ -82,11 +82,13 @@ class StationSelectTest extends Unit
             ->andReturn(['city' => 'Wrocław']);
 
         $this->select->setRequest($this->request);
-        $result = $this->select->getData();
+        $result = $this->select->getResponse();
+
+        $data = $result['data'];
 
         $this->assertIsArray($result);
-        $this->assertCount(2, reset($result));
-        $this->assertArrayHasKey('value', reset($result));
+        $this->assertCount(1, $data);
+        $this->assertArrayHasKey('value', reset($data));
     }
 
     /**
@@ -107,10 +109,12 @@ class StationSelectTest extends Unit
             ->andReturn(['city' => 'example']);
 
         $this->select->setRequest($this->request);
-        $result = $this->select->getData();
+        $result = $this->select->getResponse();
+
+        $data = $result['data'];
 
         $this->assertIsArray($result);
-        $this->assertEmpty($result);
+        $this->assertEmpty($data);
     }
 
     /**
