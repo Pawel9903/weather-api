@@ -14,11 +14,11 @@ use JMS\Serializer\Annotation as Serializer;
 class Station
 {
     /**
-     * @var int
+     * @var int|null
      * @Serializer\Type("int")
      * @Serializer\Groups("min", "max")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @var string
@@ -49,18 +49,18 @@ class Station
     private City $city;
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return $this
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;

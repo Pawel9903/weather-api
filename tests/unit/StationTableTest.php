@@ -7,7 +7,7 @@ use App\Core\Transformer\Address\CommuneTransformer;
 use App\Core\Transformer\GeoJson\GeoJsonTransformer;
 use App\Core\Transformer\GeoJson\GeometryTransformer;
 use App\Weather\Curl\StationCurl;
-use App\Weather\Dao\StationDaoCollection;
+use App\Weather\Dao\StationDao;
 use App\Weather\Dao\Table\StationTable;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
@@ -34,9 +34,9 @@ class StationTableTest extends Unit
     private StationCurl $curl;
 
     /**
-     * @var StationDaoCollection
+     * @var StationDao
      */
-    private StationDaoCollection $dao;
+    private StationDao $dao;
 
     /**
      * @var Mockery\LegacyMockInterface|Mockery\MockInterface|Request
@@ -55,7 +55,7 @@ class StationTableTest extends Unit
     {
         $this->curl = Mockery::mock(StationCurl::class);
         $this->request = Mockery::mock(Request::class);
-        $this->dao = new StationDaoCollection(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
+        $this->dao = new StationDao(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
         $this->table = new StationTable($this->dao);
     }
 

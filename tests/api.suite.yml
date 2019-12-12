@@ -1,0 +1,7 @@
+actor: ApiTester
+modules:
+    enabled:
+        - \Helper\Api
+        - Codeception\Module\REST:
+            depends: Codeception\Module\PhpBrowser
+            url: http://127.0.0.1:8000

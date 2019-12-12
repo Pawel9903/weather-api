@@ -13,14 +13,10 @@ use Curl\Curl as CurlService;
 class StationCurl extends Curl
 {
 
-    /**
-     * StationCurl constructor.
-     * @param CurlService $curl
-     */
-    public function __construct(CurlService $curl)
+    public function __construct()
     {
-        parent::__construct($curl);
-        $this->setBasicUrl('http://api.gios.gov.pl', WeatherPrefixEnum::STATION_PREFIX);
+        parent::__construct();
+        $this->setBasicUrl($_ENV['WEATHER_API_HOST'], WeatherPrefixEnum::STATION_PREFIX);
     }
 
     /**

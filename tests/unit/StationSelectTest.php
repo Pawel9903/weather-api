@@ -7,7 +7,7 @@ use App\Core\Transformer\Address\CommuneTransformer;
 use App\Core\Transformer\GeoJson\GeoJsonTransformer;
 use App\Core\Transformer\GeoJson\GeometryTransformer;
 use App\Weather\Curl\StationCurl;
-use App\Weather\Dao\StationDaoCollection;
+use App\Weather\Dao\StationDao;
 use App\Weather\Dao\Select\StationSelect;
 use App\Weather\Transformer\Station\StationTransformer;
 use Codeception\Test\Unit;
@@ -33,9 +33,9 @@ class StationSelectTest extends Unit
     private StationCurl $curl;
 
     /**
-     * @var StationDaoCollection
+     * @var StationDao
      */
-    private StationDaoCollection $dao;
+    private StationDao $dao;
 
     /**
      * @var StationSelect
@@ -54,7 +54,7 @@ class StationSelectTest extends Unit
     {
         $this->curl = Mockery::mock(StationCurl::class);
         $this->request = Mockery::mock(Request::class);
-        $this->dao = new StationDaoCollection(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
+        $this->dao = new StationDao(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
         $this->select = new StationSelect($this->dao);
 
     }
