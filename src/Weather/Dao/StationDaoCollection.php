@@ -2,12 +2,12 @@
 
 namespace App\Weather\Dao;
 
-use App\Core\Dao\DaoSelectDataInterface;
+use App\Core\Dao\DaoCollectionInterface;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
 
-class StationDao implements DaoSelectDataInterface
+class StationDaoCollection implements DaoCollectionInterface
 {
     /**
      * @var StationCurl
@@ -20,7 +20,7 @@ class StationDao implements DaoSelectDataInterface
     private StationTransformer $transformer;
 
     /**
-     * StationDao constructor.
+     * StationDaoCollection constructor.
      * @param StationTransformer $transformer
      * @param StationCurl $curl
      */
@@ -44,7 +44,7 @@ class StationDao implements DaoSelectDataInterface
      * @param array $filter
      * @return Station[]
      */
-    public function setSelectDataFilters(array $collection, array $filter = []): array
+    public function setFilters(array $collection, array $filter = []): array
     {
         if(!empty($filter['city'])) {
             $collection = array_filter($collection, function (Station $model) use ($filter) {

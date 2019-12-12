@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace App\Weather\Select;
+namespace App\Weather\Dao\Select;
 
-use App\Core\Dao\DaoSelectDataInterface;
-use App\Core\Select\SelectData;
-use App\Weather\Dao\StationDao;
+use App\Core\Dao\DaoCollectionInterface;
+use App\Core\Dao\Select\SelectData;
+use App\Weather\Dao\StationDaoCollection;
 use App\Weather\Model\Station\Station;
 
 /**
@@ -15,25 +15,25 @@ use App\Weather\Model\Station\Station;
 class StationSelect extends SelectData
 {
     /**
-     * @var StationDao
+     * @var DaoCollectionInterface
      */
-    private StationDao $dao;
+    protected DaoCollectionInterface $dao;
 
     /**
      * StationSelect constructor.
-     * @param StationDao $dao
+     * @param StationDaoCollection $dao
      * @throws \Exception
      */
-    public function __construct(StationDao $dao)
+    public function __construct(StationDaoCollection $dao)
     {
         $this->dao = $dao;
         parent::__construct();
     }
 
     /**
-     * @return DaoSelectDataInterface
+     * @return DaoCollectionInterface
      */
-    public function getDaoInstance(): DaoSelectDataInterface
+    public function getDaoInstance(): DaoCollectionInterface
     {
         return $this->dao;
     }

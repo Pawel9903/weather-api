@@ -1,26 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace App\Core\Select;
+namespace App\Core\Dao;
 
-use App\Core\Dao\DaoSelectDataInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class SelectData
- * @package App\Core\Select
+ * Class DaoCollection
+ * @package App\Core\Dao
  * @author Pawel Ged <pawelged9903@gmail.com>
  */
-abstract class SelectData implements SelectDataInterface
+abstract class DaoCollection
 {
     /**
      * @var Request
      */
-    private Request $request;
+    protected Request $request;
 
     /**
-     * @var DaoSelectDataInterface
+     * @var DaoCollectionInterface
      */
-    private DaoSelectDataInterface $dao;
+    protected DaoCollectionInterface $dao;
 
     /**
      * SelectData constructor.
@@ -50,15 +49,5 @@ abstract class SelectData implements SelectDataInterface
     public function setRequest(Request $request): void
     {
         $this->request = $request;
-    }
-
-    /**
-     * @return array
-     */
-    public function select(): array
-    {
-        $collection = $this->dao->getData();
-        $filteredCollection = $this->dao->setSelectDataFilters($collection, $this->request->get('filter')?? []);
-        return $this->createSelectStructure($filteredCollection);
     }
 }

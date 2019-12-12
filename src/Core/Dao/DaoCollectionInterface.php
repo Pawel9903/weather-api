@@ -3,17 +3,17 @@
 namespace App\Core\Dao;
 
 /**
- * Interface DaoSelectDataInterface
+ * Interface DaoCollectionInterface
  * @package App\Core\Dao
  */
-interface DaoSelectDataInterface
+interface DaoCollectionInterface
 {
     /**
      * @param array $collection
      * @param array $filter
      * @return array
      */
-    public function setSelectDataFilters(array $collection, array $filter = []): array;
+    public function setFilters(array $collection, array $filter = []): array;
 
     /**
      * @return array

@@ -2,6 +2,7 @@
 
 namespace tests\unit;
 
+use App\Core\Dao\Table\TableInterface;
 use App\Core\Transformer\Address\CityTransformer;
 use App\Core\Transformer\Address\CommuneTransformer;
 use App\Core\Transformer\GeoJson\GeoJsonTransformer;
@@ -9,6 +10,8 @@ use App\Core\Transformer\GeoJson\GeometryTransformer;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Dao\StationDaoCollection;
 use App\Weather\Dao\Select\StationSelect;
+use App\Weather\Dao\Table\StationTable;
+use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
 use Codeception\Test\Unit;
 use Mockery;
@@ -20,7 +23,7 @@ use UnitTester;
  * @package tests\unit
  * @author Pawel Ged <pawelged9903@gmail.com>
  */
-class StationSelectTest extends Unit
+class StationTableTest extends Unit
 {
     /**
      * @var UnitTester
@@ -38,14 +41,14 @@ class StationSelectTest extends Unit
     private StationDaoCollection $dao;
 
     /**
-     * @var StationSelect
-     */
-    private StationSelect $select;
-
-    /**
      * @var Mockery\LegacyMockInterface|Mockery\MockInterface|Request
      */
     private Request $request;
+
+    /**
+     * @var StationTable
+     */
+    private StationTable $table;
 
     /**
      * @throws \Exception
@@ -55,8 +58,7 @@ class StationSelectTest extends Unit
         $this->curl = Mockery::mock(StationCurl::class);
         $this->request = Mockery::mock(Request::class);
         $this->dao = new StationDaoCollection(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
-        $this->select = new StationSelect($this->dao);
-
+        $this->table = new StationTable($this->dao);
     }
 
     protected function _after()
@@ -67,7 +69,7 @@ class StationSelectTest extends Unit
     /**
      * @return void
      */
-    public function testWhenCallStationsSelectDataMethodGetFilteredSelectDataCollection(): void
+    public function testWhenCallStationsTableDataMethodGetFilteredTableDataCollection(): void
     {
         $this->curl
             ->shouldReceive('stations')
@@ -81,36 +83,11 @@ class StationSelectTest extends Unit
             ->once()
             ->andReturn(['city' => 'Wrocław']);
 
-        $this->select->setRequest($this->request);
-        $result = $this->select->getData();
+        $this->table->setRequest($this->request);
+        $result = $this->table->getData();
 
         $this->assertIsArray($result);
-        $this->assertCount(2, reset($result));
-        $this->assertArrayHasKey('value', reset($result));
-    }
-
-    /**
-     * @return void
-     */
-    public function testWhenCallStationsSelectDataMethodWithBadFilterKeyEmptyArrayGetEmptyArray(): void
-    {
-        $this->curl
-            ->shouldReceive('stations')
-            ->withNoArgs()
-            ->once()
-            ->andReturn([]);
-
-        $this->request
-            ->shouldReceive('get')
-            ->with('filter')
-            ->once()
-            ->andReturn(['city' => 'example']);
-
-        $this->select->setRequest($this->request);
-        $result = $this->select->getData();
-
-        $this->assertIsArray($result);
-        $this->assertEmpty($result);
+        $this->assertInstanceOf(Station::class, reset($result));
     }
 
     /**
