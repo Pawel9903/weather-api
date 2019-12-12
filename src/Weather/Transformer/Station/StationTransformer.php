@@ -35,7 +35,7 @@ class StationTransformer extends Transformer
      */
     public function transform($data, array $context = []): Station
     {
-        $model = $context[self::INSTANCE] instanceof Station? $context[self::INSTANCE] : new Station();
+        $model = $context[self::INSTANCE]?? new Station();
         $this->setObjectProps($model, $data);
         return $model;
     }

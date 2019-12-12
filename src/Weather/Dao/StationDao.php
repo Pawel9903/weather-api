@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace App\Weather\Dao;
+
 use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
