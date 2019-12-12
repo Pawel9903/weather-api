@@ -25,5 +25,8 @@ jobs:
           extensions: mbstring, intl
           coverage: xdebug
 
-      - name: Run test suite
-        run: vendor/bin/codecept run
+      - name: Run unit test suite
+        run: vendor/bin/codecept run unit
+
+      - name: Run api test suite
+          run: vendor/bin/codecept run api
