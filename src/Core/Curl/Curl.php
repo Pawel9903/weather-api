@@ -29,11 +29,11 @@ abstract class Curl
 
     /**
      * Curl constructor.
-     * @param CurlService $curl
+     * @throws \ErrorException
      */
-    public function __construct(CurlService $curl)
+    public function __construct()
     {
-        $this->curl = $curl;
+        $this->curl = new CurlService();
     }
 
     /**
@@ -60,7 +60,7 @@ abstract class Curl
      */
     public function response(): array
     {
-        return json_decode($this->curl->getResponse())?? [];
+        return json_decode($this->curl->getResponse(), true)?? [];
     }
 
     /**

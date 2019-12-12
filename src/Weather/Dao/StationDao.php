@@ -7,7 +7,7 @@ use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
 
-class StationDaoCollection implements DaoCollectionInterface
+class StationDao implements DaoCollectionInterface
 {
     /**
      * @var StationCurl
@@ -20,7 +20,7 @@ class StationDaoCollection implements DaoCollectionInterface
     private StationTransformer $transformer;
 
     /**
-     * StationDaoCollection constructor.
+     * StationDao constructor.
      * @param StationTransformer $transformer
      * @param StationCurl $curl
      */

@@ -4,7 +4,7 @@ namespace App\Weather\Dao\Select;
 
 use App\Core\Dao\DaoCollectionInterface;
 use App\Core\Dao\Select\SelectData;
-use App\Weather\Dao\StationDaoCollection;
+use App\Weather\Dao\StationDao;
 use App\Weather\Model\Station\Station;
 
 /**
@@ -21,10 +21,10 @@ class StationSelect extends SelectData
 
     /**
      * StationSelect constructor.
-     * @param StationDaoCollection $dao
+     * @param StationDao $dao
      * @throws \Exception
      */
-    public function __construct(StationDaoCollection $dao)
+    public function __construct(StationDao $dao)
     {
         $this->dao = $dao;
         parent::__construct();
