@@ -3,7 +3,6 @@
 namespace App\Weather\Curl;
 
 use App\Core\Curl\Curl;
-use Curl\Curl as CurlService;
 
 /**
  * Class StationCurl
@@ -25,5 +24,14 @@ class StationCurl extends Curl
     public function stations(): array
     {
         return $this->get('findAll');
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function sensorsByStationId(int $id): array
+    {
+        return $this->get("sensors/{$id}");
     }
 }

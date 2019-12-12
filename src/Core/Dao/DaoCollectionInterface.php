@@ -16,7 +16,8 @@ interface DaoCollectionInterface
     public function setFilters(array $collection, array $filter = []): array;
 
     /**
+     * @param int|null $id
      * @return array
      */
-    public function getData(): array;
+    public function getData(?int $id = null): array;
 }

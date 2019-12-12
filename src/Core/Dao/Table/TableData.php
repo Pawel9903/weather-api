@@ -12,11 +12,12 @@ use App\Core\Dao\DaoCollection;
 abstract class TableData extends DaoCollection implements TableInterface
 {
     /**
+     * @param int|null $id
      * @return array
      */
-    protected function getFilteredData(): array
+    protected function getFilteredData(?int $id = null): array
     {
-        $collection = $this->dao->getData();
+        $collection = $this->dao->getData($id);
         return $this->dao->setFilters($collection, $this->request->get('filter')?? []);
     }
 }

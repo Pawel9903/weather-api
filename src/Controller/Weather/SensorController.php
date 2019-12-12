@@ -2,7 +2,7 @@
 
 namespace App\Controller\Weather;
 
-use App\Weather\Handler\StationHandler;
+use App\Weather\Handler\SensorHandler;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,21 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class StationController
+ * Class SensorController
  * @package App\Controller\Weather
  * @author Pawel Ged <pawelged9903@gmail.com>
- * @Rest\Route("/stations", name="stations_")
+ * @Rest\Route("/stations/{id}/sensors", name="sensors_")
  */
-class StationController extends AbstractFOSRestController
+class SensorController extends AbstractFOSRestController
 {
     /**
      * @param Request $request
-     * @param StationHandler $handler
+     * @param SensorHandler $handler
      * @return JsonResponse
-     * @Rest\Get(path="/select", name="select")
+     * @Rest\Get(path="/", name="list")
      */
-    public function select(Request $request, StationHandler $handler): JsonResponse
+    public function sensors(Request $request, SensorHandler $handler): JsonResponse
     {
-        return new JsonResponse($handler->handle($request)->select(), Response::HTTP_OK);
+        return new JsonResponse($handler->handle($request)->collection((int)$request->get('id')), Response::HTTP_OK);
     }
 }

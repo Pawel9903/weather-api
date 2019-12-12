@@ -52,13 +52,18 @@ abstract class DaoCollection
     }
 
     /**
+     * @param int|null $id
      * @return array
      */
-    public function getResponse(): array
+    public function getResponse(?int $id = null): array
     {
-        $data = $this->getFilteredData();
+        $data = $this->getFilteredData($id);
         return ['data' => $data, 'count' => count($data)];
     }
 
-    abstract protected function getFilteredData(): array;
+    /**
+     * @param int|null $id
+     * @return array
+     */
+    abstract protected function getFilteredData(?int $id = null): array;
 }

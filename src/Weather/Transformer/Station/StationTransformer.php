@@ -66,7 +66,7 @@ class StationTransformer extends Transformer
     private function setPropsByArray(Station $model, array $data): void
     {
         $model
-            ->setId(!empty($data['id'])? $data['id'] : 0)
+            ->setId(!empty($data['id'])? $data['id'] : null)
             ->setName(!empty($data['name'])? $data['name'] : '')
             ->setAddress(!empty($data['addressStreet'])? $data['addressStreet'] : '');
 

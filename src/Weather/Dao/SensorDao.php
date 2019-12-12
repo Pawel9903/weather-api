@@ -5,9 +5,9 @@ namespace App\Weather\Dao;
 use App\Core\Dao\DaoCollectionInterface;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
-use App\Weather\Transformer\Station\StationTransformer;
+use App\Weather\Transformer\Station\SensorTransformer;
 
-class StationDao implements DaoCollectionInterface
+class SensorDao implements DaoCollectionInterface
 {
     /**
      * @var StationCurl
@@ -15,16 +15,16 @@ class StationDao implements DaoCollectionInterface
     private StationCurl $curl;
 
     /**
-     * @var StationTransformer
+     * @var SensorTransformer
      */
-    private StationTransformer $transformer;
+    private SensorTransformer $transformer;
 
     /**
      * StationDao constructor.
-     * @param StationTransformer $transformer
+     * @param SensorTransformer $transformer
      * @param StationCurl $curl
      */
-    public function __construct(StationTransformer $transformer, StationCurl $curl)
+    public function __construct(SensorTransformer $transformer, StationCurl $curl)
     {
         $this->curl = $curl;
         $this->transformer = $transformer;
@@ -36,23 +36,20 @@ class StationDao implements DaoCollectionInterface
      */
     public function getData(?int $id = null): array
     {
-        $data = $this->curl->stations();
-        return array_map([$this->transformer, 'transform'], $data);
+        if(is_integer($id)) {
+            $data = $this->curl->sensorsByStationId($id);
+            return array_map([$this->transformer, 'transform'], $data);
+        }
+        return [];
     }
 
     /**
-     * @param Station[] $collection
+     * @param array $collection
      * @param array $filter
-     * @return Station[]
+     * @return array
      */
     public function setFilters(array $collection, array $filter = []): array
     {
-        if(!empty($filter['city'])) {
-            $collection = array_filter($collection, function (Station $model) use ($filter) {
-                return $model->getCity()->getName() === $filter['city'];
-            });
-        }
-
         return $collection;
     }
 }
