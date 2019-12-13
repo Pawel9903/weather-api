@@ -14,14 +14,14 @@ class GeoJson
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $type = "Feature";
 
     /**
      * @var Geometry
-     * @Serializer\Type("object")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Type("Geometry")
+     * @Serializer\Groups({"min", "max"})
      */
     private Geometry $geometry;
 

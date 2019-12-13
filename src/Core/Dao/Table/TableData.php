@@ -16,7 +16,7 @@ abstract class TableData extends DaoCollection implements TableInterface
      */
     protected function getFilteredData(): array
     {
-        $collection = $this->dao->getData();
-        return $this->dao->setFilters($collection, $this->request->get('filter')?? []);
+        $collection = $this->dao->getData($this->params);
+        return $this->dao->setFilters($collection, $this->params->getFilter());
     }
 }

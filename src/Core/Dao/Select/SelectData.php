@@ -17,8 +17,8 @@ abstract class SelectData extends DaoCollection implements SelectDataInterface
      */
     protected function getFilteredData(): array
     {
-        $collection = $this->dao->getData();
-        $filteredCollection = $this->dao->setFilters($collection, $this->request->get('filter')?? []);
+        $collection = $this->dao->getData($this->params);
+        $filteredCollection = $this->dao->setFilters($collection, $this->params->getFilter());
         return $this->createSelectStructure($filteredCollection);
     }
 

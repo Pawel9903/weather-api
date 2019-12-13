@@ -19,11 +19,10 @@ class GeoJsonTransformer extends Transformer
 
     /**
      * GeoJsonTransformer constructor.
-     * @param GeometryTransformer $geometryTransformer
      */
-    public function __construct(GeometryTransformer $geometryTransformer)
+    public function __construct()
     {
-        $this->geometryTransformer = $geometryTransformer;
+        $this->geometryTransformer = new GeometryTransformer;
     }
 
     /**

@@ -27,13 +27,11 @@ class StationTransformer extends Transformer
 
     /**
      * StationTransformer constructor.
-     * @param GeoJsonTransformer $geoJsonTransformer
-     * @param CityTransformer $cityTransformer
      */
-    public function __construct(GeoJsonTransformer $geoJsonTransformer, CityTransformer $cityTransformer)
+    public function __construct()
     {
-        $this->geoJsonTransformer = $geoJsonTransformer;
-        $this->cityTransformer = $cityTransformer;
+        $this->geoJsonTransformer = new GeoJsonTransformer;
+        $this->cityTransformer = new CityTransformer;
     }
 
     /**
@@ -66,7 +64,7 @@ class StationTransformer extends Transformer
     private function setPropsByArray(Station $model, array $data): void
     {
         $model
-            ->setId(!empty($data['id'])? $data['id'] : 0)
+            ->setId(!empty($data['id'])? $data['id'] : null)
             ->setName(!empty($data['name'])? $data['name'] : '')
             ->setAddress(!empty($data['addressStreet'])? $data['addressStreet'] : '');
 

@@ -3,38 +3,39 @@
 namespace App\Weather\Handler;
 
 use App\Core\Handler\Handler;
-use App\Weather\Dao\Select\StationSelect;
+use App\Weather\Dao\Table\SensorTable;
+use App\Weather\Model\Station\Sensor;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class StationHandler
+ * Class SensorHandler
  * @package App\Weather\Handler
  * @author Pawel Ged <pawelged9903@gmail.com>
  * @method $this handle(Request $request)
  */
-class StationHandler extends Handler
+class SensorHandler extends Handler
 {
     /**
-     * @var StationSelect
+     * @var SensorTable
      */
-    private StationSelect $select;
+    private SensorTable $table;
 
     /**
-     * StationHandler constructor.
-     * @param StationSelect $select
+     * SensorHandler constructor.
+     * @param SensorTable $table
      */
-    public function __construct(StationSelect $select)
+    public function __construct(SensorTable $table)
     {
         parent::__construct();
-        $this->select = $select;
+        $this->table = $table;
     }
 
     /**
-     * @return array
+     * @return Sensor[]
      */
-    public function select(): array
+    public function collection(): array
     {
-        return $this->select->getResponse();
+        return $this->table->getResponse();
     }
 
     /**
@@ -43,7 +44,7 @@ class StationHandler extends Handler
      */
     protected function processing(Request $request): self
     {
-        $this->select->setParams($request);
+        $this->table->setParams($request);
         return $this;
     }
 }

@@ -1,36 +1,36 @@
 <?php declare(strict_types=1);
 
-namespace App\Core\Model\Address;
+namespace App\Weather\Model\Station;
 
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * Class City
- * @package App\Core\Model\GeoJson
+ * Class Sensor
+ * @package App\Weather\Model\Station
  * @author Pawel Ged <pawelged9903@gmail.com>
  */
-class City
+class Sensor
 {
     /**
      * @var int|null
      * @Serializer\Type("int")
      * @Serializer\Groups({"min", "max"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
-     * @var string
-     * @Serializer\Type("string")
+     * @var int|null
+     * @Serializer\Type("int")
      * @Serializer\Groups({"min", "max"})
      */
-    private string $name;
+    private ?int $stationId = null;
 
     /**
-     * @var Commune
-     * @Serializer\Type("Commune")
+     * @var SensorParam
+     * @Serializer\Type("App\Weather\Model\Station\SensorParam")
      * @Serializer\Groups({"min", "max"})
      */
-    private Commune $commune;
+    private SensorParam $param;
 
     /**
      * @return int|null
@@ -51,38 +51,38 @@ class City
     }
 
     /**
-     * @return string
+     * @return int|null
      */
-    public function getName(): string
+    public function getStationId(): ?int
     {
-        return $this->name;
+        return $this->stationId;
     }
 
     /**
-     * @param string $name
+     * @param int|null $stationId
      * @return $this
      */
-    public function setName(string $name): self
+    public function setStationId(?int $stationId): self
     {
-        $this->name = $name;
+        $this->stationId = $stationId;
         return $this;
     }
 
     /**
-     * @return Commune
+     * @return SensorParam
      */
-    public function getCommune(): Commune
+    public function getParam(): SensorParam
     {
-        return $this->commune;
+        return $this->param;
     }
 
     /**
-     * @param Commune $commune
-     * @return $this
+     * @param SensorParam $param
+     * @return Sensor
      */
-    public function setCommune(Commune $commune): self
+    public function setParam(SensorParam $param): Sensor
     {
-        $this->commune = $commune;
+        $this->param = $param;
         return $this;
     }
 }

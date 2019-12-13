@@ -3,6 +3,7 @@
 namespace App\Weather\Dao;
 
 use App\Core\Dao\DaoCollectionInterface;
+use App\Core\Dao\DaoCollectionParam\DaoCollectionParamInterface;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
@@ -21,19 +22,19 @@ class StationDao implements DaoCollectionInterface
 
     /**
      * StationDao constructor.
-     * @param StationTransformer $transformer
      * @param StationCurl $curl
      */
-    public function __construct(StationTransformer $transformer, StationCurl $curl)
+    public function __construct(StationCurl $curl)
     {
         $this->curl = $curl;
-        $this->transformer = $transformer;
+        $this->transformer = new StationTransformer;
     }
 
     /**
+     * @param null|DaoCollectionParamInterface $params
      * @return Station[]
      */
-    public function getData(): array
+    public function getData(DaoCollectionParamInterface $params = null): array
     {
         $data = $this->curl->stations();
         return array_map([$this->transformer, 'transform'], $data);

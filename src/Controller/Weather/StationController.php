@@ -5,7 +5,6 @@ namespace App\Controller\Weather;
 use App\Weather\Handler\StationHandler;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,26 +18,13 @@ use Symfony\Component\HttpFoundation\Response;
 class StationController extends AbstractFOSRestController
 {
     /**
-     * @var StationHandler
-     */
-    private StationHandler $handler;
-
-    /**
-     * StationController constructor.
-     * @param StationHandler $handler
-     */
-    public function __construct(StationHandler $handler)
-    {
-        $this->handler = $handler;
-    }
-
-    /**
      * @param Request $request
+     * @param StationHandler $handler
      * @return JsonResponse
      * @Rest\Get(path="/select", name="select")
      */
-    public function select(Request $request): JsonResponse
+    public function select(Request $request, StationHandler $handler): JsonResponse
     {
-        return new JsonResponse($this->handler->handle($request)->select(), Response::HTTP_OK);
+        return new JsonResponse($handler->handle($request)->select(), Response::HTTP_OK);
     }
 }

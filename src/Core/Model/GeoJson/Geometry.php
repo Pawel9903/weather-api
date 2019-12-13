@@ -14,28 +14,28 @@ class Geometry
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $type = "Point";
 
     /**
      * @var float
      * @Serializer\Type("float")
-     * @Serializer\Groups("max")
+     * @Serializer\Groups({"max"})
      */
     private float $lon = 0;
 
     /**
      * @var float
      * @Serializer\Type("float")
-     * @Serializer\("max")
+     * @Serializer\Groups({"max"})
      */
     private float $lat = 0;
 
     /**
      * @return array
      * @Serializer\Type("array")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("coordinates")
      */

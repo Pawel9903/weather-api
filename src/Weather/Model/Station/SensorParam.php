@@ -2,16 +2,14 @@
 
 namespace App\Weather\Model\Station;
 
-use App\Core\Model\Address\City;
-use App\Core\Model\GeoJson\GeoJson;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * Class Station
+ * Class SensorParam
  * @package App\Weather\Model\Station
  * @author Pawel Ged <pawelged9903@gmail.com>
  */
-class Station
+class SensorParam
 {
     /**
      * @var int|null
@@ -32,21 +30,14 @@ class Station
      * @Serializer\Type("string")
      * @Serializer\Groups({"min", "max"})
      */
-    private string $address;
+    private string $formula;
 
     /**
-     * @var GeoJson
-     * @Serializer\Type("GeoJson")
+     * @var string
+     * @Serializer\Type("string")
      * @Serializer\Groups({"min", "max"})
      */
-    private GeoJson $coords;
-
-    /**
-     * @var City
-     * @Serializer\Type("City")
-     * @Serializer\Groups({"min", "max"})
-     */
-    private City $city;
+    private string $code;
 
     /**
      * @return int|null
@@ -87,54 +78,36 @@ class Station
     /**
      * @return string
      */
-    public function getAddress(): string
+    public function getFormula(): string
     {
-        return $this->address;
+        return $this->formula;
     }
 
     /**
-     * @param string $address
+     * @param string $formula
      * @return $this
      */
-    public function setAddress(string $address): self
+    public function setFormula(string $formula): self
     {
-        $this->address = $address;
+        $this->formula = $formula;
         return $this;
     }
 
     /**
-     * @return GeoJson
+     * @return string
      */
-    public function getCoords(): GeoJson
+    public function getCode(): string
     {
-        return $this->coords;
+        return $this->code;
     }
 
     /**
-     * @param GeoJson $coords
+     * @param string $code
      * @return $this
      */
-    public function setCoords(GeoJson $coords): self
+    public function setCode(string $code): self
     {
-        $this->coords = $coords;
-        return $this;
-    }
-
-    /**
-     * @return City
-     */
-    public function getCity(): City
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param City $city
-     * @return $this
-     */
-    public function setCity(City $city): self
-    {
-        $this->city = $city;
+        $this->code = $code;
         return $this;
     }
 }

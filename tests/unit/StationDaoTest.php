@@ -41,7 +41,7 @@ class StationDaoTest extends Unit
     protected function _before()
     {
         $this->curl = Mockery::mock(StationCurl::class);
-        $this->dao = new StationDao(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
+        $this->dao = new StationDao($this->curl);
     }
 
     protected function _after()
