@@ -19,11 +19,10 @@ class CityTransformer extends Transformer
 
     /**
      * CityTransformer constructor.
-     * @param CommuneTransformer $CommuneTransformer
      */
-    public function __construct(CommuneTransformer $CommuneTransformer)
+    public function __construct()
     {
-        $this->CommuneTransformer = $CommuneTransformer;
+        $this->CommuneTransformer = new CommuneTransformer;
     }
 
     /**

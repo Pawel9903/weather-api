@@ -13,13 +13,12 @@ use App\Weather\Model\Station\Station;
 abstract class SelectData extends DaoCollection implements SelectDataInterface
 {
     /**
-     * @param int|null $id
      * @return array
      */
-    protected function getFilteredData(?int $id = null): array
+    protected function getFilteredData(): array
     {
-        $collection = $this->dao->getData($id);
-        $filteredCollection = $this->dao->setFilters($collection, $this->request->get('filter')?? []);
+        $collection = $this->dao->getData($this->params);
+        $filteredCollection = $this->dao->setFilters($collection, $this->params->getFilter());
         return $this->createSelectStructure($filteredCollection);
     }
 

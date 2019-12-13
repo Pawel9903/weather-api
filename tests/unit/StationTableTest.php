@@ -13,6 +13,7 @@ use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
 use Codeception\Test\Unit;
 use Mockery;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use UnitTester;
 
@@ -47,6 +48,10 @@ class StationTableTest extends Unit
      * @var StationTable
      */
     private StationTable $table;
+    /**
+     * @var Mockery\LegacyMockInterface|Mockery\MockInterface|ParameterBag
+     */
+    private ParameterBag $parameterBag;
 
     /**
      * @throws \Exception
@@ -55,8 +60,11 @@ class StationTableTest extends Unit
     {
         $this->curl = Mockery::mock(StationCurl::class);
         $this->request = Mockery::mock(Request::class);
-        $this->dao = new StationDao(new StationTransformer(new GeoJsonTransformer(new GeometryTransformer()), new CityTransformer(new CommuneTransformer())), $this->curl);
+        $this->dao = new StationDao($this->curl);
         $this->table = new StationTable($this->dao);
+        $this->parameterBag = Mockery::mock(ParameterBag::class);
+        $this->request->attributes = $this->parameterBag;
+        $this->request->request = $this->parameterBag;
     }
 
     protected function _after()
@@ -69,19 +77,26 @@ class StationTableTest extends Unit
      */
     public function testWhenCallStationsTableDataMethodGetFilteredTableDataCollection(): void
     {
+        $this->parameterBag->shouldReceive('all')
+            ->withNoArgs()
+            ->once()
+            ->andReturn([]);
+        $this->parameterBag->shouldReceive('get')
+            ->with('_route_params')
+            ->once()
+            ->andReturn([]);
         $this->curl
             ->shouldReceive('stations')
             ->withNoArgs()
             ->once()
             ->andReturn($this->mockWeatherApiArray());
-
         $this->request
             ->shouldReceive('get')
             ->with('filter')
             ->once()
             ->andReturn(['city' => 'Wrocław']);
 
-        $this->table->setRequest($this->request);
+        $this->table->setParams($this->request);
         $result = $this->table->getResponse();
 
         $data = $result['data'];

@@ -2,6 +2,8 @@
 
 namespace App\Core\Dao;
 
+use App\Core\Dao\DaoCollectionParam\DaoCollectionParamInterface;
+
 /**
  * Interface DaoCollectionInterface
  * @package App\Core\Dao
@@ -16,8 +18,8 @@ interface DaoCollectionInterface
     public function setFilters(array $collection, array $filter = []): array;
 
     /**
-     * @param int|null $id
+     * @param null|DaoCollectionParamInterface $params
      * @return array
      */
-    public function getData(?int $id = null): array;
+    public function getData(DaoCollectionParamInterface $params): array;
 }

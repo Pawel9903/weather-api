@@ -16,35 +16,35 @@ class Station
     /**
      * @var int|null
      * @Serializer\Type("int")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private ?int $id = null;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $name;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $address;
 
     /**
      * @var GeoJson
-     * @Serializer\Type("object")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Type("GeoJson")
+     * @Serializer\Groups({"min", "max"})
      */
     private GeoJson $coords;
 
     /**
      * @var City
-     * @Serializer\Type("object")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Type("City")
+     * @Serializer\Groups({"min", "max"})
      */
     private City $city;
 

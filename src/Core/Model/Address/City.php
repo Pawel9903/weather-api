@@ -14,21 +14,21 @@ class City
     /**
      * @var int|null
      * @Serializer\Type("int")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private ?int $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $name;
 
     /**
      * @var Commune
-     * @Serializer\Type("object")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Type("Commune")
+     * @Serializer\Groups({"min", "max"})
      */
     private Commune $commune;
 

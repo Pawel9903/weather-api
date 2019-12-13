@@ -14,28 +14,28 @@ class SensorParam
     /**
      * @var int|null
      * @Serializer\Type("int")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private ?int $id = null;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $name;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $formula;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $code;
 

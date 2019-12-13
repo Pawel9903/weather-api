@@ -31,12 +31,11 @@ class SensorHandler extends Handler
     }
 
     /**
-     * @param int|null $id
      * @return Sensor[]
      */
-    public function collection(?int $id): array
+    public function collection(): array
     {
-        return $this->table->getResponse($id);
+        return $this->table->getResponse();
     }
 
     /**
@@ -45,7 +44,7 @@ class SensorHandler extends Handler
      */
     protected function processing(Request $request): self
     {
-        $this->table->setRequest($request);
+        $this->table->setParams($request);
         return $this;
     }
 }

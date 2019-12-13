@@ -15,21 +15,21 @@ class Commune
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $name;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $district;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private string $province;
 

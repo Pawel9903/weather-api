@@ -2,6 +2,8 @@
 
 namespace App\Core\Dao;
 
+use App\Core\Dao\DaoCollectionParam\DaoCollectionParam;
+use App\Core\Dao\DaoCollectionParam\DaoCollectionParamInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -12,9 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 abstract class DaoCollection
 {
     /**
-     * @var Request
+     * @var DaoCollectionParamInterface
      */
-    protected Request $request;
+    protected DaoCollectionParamInterface $params;
 
     /**
      * @var DaoCollectionInterface
@@ -22,12 +24,13 @@ abstract class DaoCollection
     protected DaoCollectionInterface $dao;
 
     /**
-     * SelectData constructor.
+     * DaoCollection constructor.
      * @throws \Exception
      */
     public function __construct()
     {
         $this->setDao();
+        $this->params = new DaoCollectionParam();
     }
 
     /**
@@ -46,24 +49,25 @@ abstract class DaoCollection
     /**
      * @param Request $request
      */
-    public function setRequest(Request $request): void
+    public function setParams(Request $request): void
     {
-        $this->request = $request;
+        $this->params
+            ->setFilter($request->get('filter')?? [])
+            ->setRouteParam($request->attributes->get('_route_params')?? [])
+            ->setParameters($request->request->all()?? []);
     }
 
     /**
-     * @param int|null $id
      * @return array
      */
-    public function getResponse(?int $id = null): array
+    public function getResponse(): array
     {
-        $data = $this->getFilteredData($id);
+        $data = $this->getFilteredData();
         return ['data' => $data, 'count' => count($data)];
     }
 
     /**
-     * @param int|null $id
      * @return array
      */
-    abstract protected function getFilteredData(?int $id = null): array;
+    abstract protected function getFilteredData(): array;
 }

@@ -27,13 +27,11 @@ class StationTransformer extends Transformer
 
     /**
      * StationTransformer constructor.
-     * @param GeoJsonTransformer $geoJsonTransformer
-     * @param CityTransformer $cityTransformer
      */
-    public function __construct(GeoJsonTransformer $geoJsonTransformer, CityTransformer $cityTransformer)
+    public function __construct()
     {
-        $this->geoJsonTransformer = $geoJsonTransformer;
-        $this->cityTransformer = $cityTransformer;
+        $this->geoJsonTransformer = new GeoJsonTransformer;
+        $this->cityTransformer = new CityTransformer;
     }
 
     /**

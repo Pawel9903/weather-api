@@ -14,21 +14,21 @@ class Sensor
     /**
      * @var int|null
      * @Serializer\Type("int")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private ?int $id = null;
 
     /**
      * @var int|null
      * @Serializer\Type("int")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Groups({"min", "max"})
      */
     private ?int $stationId = null;
 
     /**
      * @var SensorParam
-     * @Serializer\Type("object")
-     * @Serializer\Groups("min", "max")
+     * @Serializer\Type("App\Weather\Model\Station\SensorParam")
+     * @Serializer\Groups({"min", "max"})
      */
     private SensorParam $param;
 

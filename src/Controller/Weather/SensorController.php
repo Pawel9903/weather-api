@@ -5,7 +5,8 @@ namespace App\Controller\Weather;
 use App\Weather\Handler\SensorHandler;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use FOS\RestBundle\View\View;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,11 +21,12 @@ class SensorController extends AbstractFOSRestController
     /**
      * @param Request $request
      * @param SensorHandler $handler
-     * @return JsonResponse
+     * @return View
      * @Rest\Get(path="/", name="list")
+     * @Serializer\Groups({"min"})
      */
-    public function sensors(Request $request, SensorHandler $handler): JsonResponse
+    public function sensors(Request $request, SensorHandler $handler): View
     {
-        return new JsonResponse($handler->handle($request)->collection((int)$request->get('id')), Response::HTTP_OK);
+        return $this->view($handler->handle($request)->collection(), Response::HTTP_OK);
     }
 }

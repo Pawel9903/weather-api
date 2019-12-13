@@ -43,7 +43,7 @@ class StationHandler extends Handler
      */
     protected function processing(Request $request): self
     {
-        $this->select->setRequest($request);
+        $this->select->setParams($request);
         return $this;
     }
 }
