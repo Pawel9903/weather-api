@@ -9,9 +9,9 @@ namespace App\Core\Dao\DaoCollectionParam;
 interface DaoCollectionParamInterface
 {
     /**
-     * @return array
+     * @return ParamElement
      */
-    public function getFilter(): array;
+    public function getFilter(): ParamElement;
 
     /**
      * @param array $filter
@@ -20,26 +20,26 @@ interface DaoCollectionParamInterface
     public function setFilter(array $filter): self;
 
     /**
-     * @return array
+     * @return ParamElement
      */
-    public function getParameters(): array;
+    public function getParameters(): ParamElement;
 
     /**
-     * @param array $parameters
+     * @param array $params
      * @return $this
      */
-    public function setParameters(array $parameters): self;
+    public function setParameters(array $params): self;
 
     /**
-     * @return array
+     * @return ParamElement
      */
-    public function getRouteParam(): array;
+    public function getRouteParams(): ParamElement;
 
     /**
-     * @param array $routeParam
+     * @param array $routeParams
      * @return $this
      */
-    public function setRouteParam(array $routeParam): self;
+    public function setRouteParams(array $routeParams): self ;
 
     /**
      * @return array

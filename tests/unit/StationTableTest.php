@@ -2,15 +2,10 @@
 
 namespace tests\unit;
 
-use App\Core\Transformer\Address\CityTransformer;
-use App\Core\Transformer\Address\CommuneTransformer;
-use App\Core\Transformer\GeoJson\GeoJsonTransformer;
-use App\Core\Transformer\GeoJson\GeometryTransformer;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Dao\StationDao;
 use App\Weather\Dao\Table\StationTable;
 use App\Weather\Model\Station\Station;
-use App\Weather\Transformer\Station\StationTransformer;
 use Codeception\Test\Unit;
 use Mockery;
 use Symfony\Component\HttpFoundation\ParameterBag;

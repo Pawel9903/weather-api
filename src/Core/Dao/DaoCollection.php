@@ -53,7 +53,7 @@ abstract class DaoCollection
     {
         $this->params
             ->setFilter($request->get('filter')?? [])
-            ->setRouteParam($request->attributes->get('_route_params')?? [])
+            ->setRouteParams($request->attributes->get('_route_params')?? [])
             ->setParameters($request->request->all()?? []);
     }
 
