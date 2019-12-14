@@ -27,7 +27,7 @@ class City
 
     /**
      * @var Commune
-     * @Serializer\Type("Commune")
+     * @Serializer\Type("App\Core\Model\Address\Commune")
      * @Serializer\Groups({"min", "max"})
      */
     private Commune $commune;

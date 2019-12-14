@@ -65,7 +65,7 @@ class StationTransformer extends Transformer
     {
         $model
             ->setId(!empty($data['id'])? $data['id'] : null)
-            ->setName(!empty($data['name'])? $data['name'] : '')
+            ->setName(!empty($data['stationName'])? $data['stationName'] : '')
             ->setAddress(!empty($data['addressStreet'])? $data['addressStreet'] : '');
 
         $this->setCoordsByArray($model, $data);

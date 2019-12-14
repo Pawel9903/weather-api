@@ -36,14 +36,14 @@ class Station
 
     /**
      * @var GeoJson
-     * @Serializer\Type("GeoJson")
+     * @Serializer\Type("App\Core\Model\GeoJson\GeoJson")
      * @Serializer\Groups({"min", "max"})
      */
     private GeoJson $coords;
 
     /**
      * @var City
-     * @Serializer\Type("City")
+     * @Serializer\Type("App\Core\Model\Address\City")
      * @Serializer\Groups({"min", "max"})
      */
     private City $city;
