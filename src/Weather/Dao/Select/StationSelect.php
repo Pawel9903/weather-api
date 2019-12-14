@@ -37,4 +37,13 @@ class StationSelect extends SelectData
     {
         return $this->dao;
     }
+
+    /**
+     * @param Station[] $collection
+     * @return Station[]
+     */
+    public function createSelectStructure(array $collection): array
+    {
+        return array_map(fn(Station $model) => ['key' => $model->getId(), 'value' => $model->getCity()->getName()] , $collection);
+    }
 }
