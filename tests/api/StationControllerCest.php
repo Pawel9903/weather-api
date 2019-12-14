@@ -26,7 +26,29 @@ class StationControllerCest
     public function testWhenSendRequestStationSelectWithFilterGetFilteredSelectData(ApiTester $I): void
     {
         $I->haveHttpHeader('content-type', 'application/json');
-        $I->sendGET('/stations/select', ['filter' => ['city' => 'Legnica'] ]);
+        $I->sendGET('/stations/select', ['filter' => ['city' => 'Legnica']]);
+        $I->seeResponseIsJson();
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+    }
+
+    /**
+     * @param ApiTester $I
+     */
+    public function testWhenSendRequestStationsGetCollection(ApiTester $I): void
+    {
+        $I->haveHttpHeader('content-type', 'application/json');
+        $I->sendGET('/stations/');
+        $I->seeResponseIsJson();
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+    }
+
+    /**
+     * @param ApiTester $I
+     */
+    public function testWhenSendRequestWithStationIdArrayGetFilteredCollection(ApiTester $I): void
+    {
+        $I->haveHttpHeader('content-type', 'application/json');
+        $I->sendGET('/stations/', ['filter' => ['id' => [114, 117, 129]]]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(Response::HTTP_OK);
     }

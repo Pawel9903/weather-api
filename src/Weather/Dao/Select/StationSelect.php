@@ -44,6 +44,37 @@ class StationSelect extends SelectData
      */
     public function createSelectStructure(array $collection): array
     {
-        return array_map(fn(Station $model) => ['key' => $model->getId(), 'value' => $model->getCity()->getName()] , $collection);
+        $selectData = array_map(fn(Station $model) => ['key' => [$model->getId()], 'value' => $model->getCity()->getName()] , $collection);
+        return $this->groupByCitiesValue($selectData);
+
+    }
+
+    /**
+     * @param array $selectData
+     * @return array
+     */
+    private function groupByCitiesValue(array $selectData): array
+    {
+        $groupedSelectData = [];
+        foreach ($selectData as $key => $elem) {
+            $searchKey = $this->searchKeyExistingValue($groupedSelectData, $elem['value']);
+            if($searchKey !== false) {
+                $groupedSelectData[$searchKey]['key'][] = reset($elem['key']);
+            }
+            else {
+                $groupedSelectData[] = $elem;
+            }
+        }
+        return $groupedSelectData;
+    }
+
+    /**
+     * @param array $selectData
+     * @param string $value
+     * @return false|int|string
+     */
+    private function searchKeyExistingValue(array $selectData, string $value)
+    {
+        return array_search($value, array_column($selectData, 'value'));
     }
 }

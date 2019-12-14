@@ -54,6 +54,12 @@ class StationDao implements DaoCollectionInterface
             );
         }
 
+        if(($filter->getParameter('id') !== null)) {
+            $collection = array_filter($collection, fn(Station $model) =>
+                in_array($model->getId(), $filter->getParameter('id'))
+            );
+        }
+
         return $collection;
     }
 }
