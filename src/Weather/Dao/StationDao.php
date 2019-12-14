@@ -4,6 +4,7 @@ namespace App\Weather\Dao;
 
 use App\Core\Dao\DaoCollectionInterface;
 use App\Core\Dao\DaoCollectionParam\DaoCollectionParamInterface;
+use App\Core\Dao\DaoCollectionParam\ParamElement;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
@@ -42,15 +43,15 @@ class StationDao implements DaoCollectionInterface
 
     /**
      * @param Station[] $collection
-     * @param array $filter
+     * @param ParamElement $filter
      * @return Station[]
      */
-    public function setFilters(array $collection, array $filter = []): array
+    public function setFilters(array $collection, ParamElement $filter): array
     {
-        if(!empty($filter['city'])) {
-            $collection = array_filter($collection, function (Station $model) use ($filter) {
-                return $model->getCity()->getName() === $filter['city'];
-            });
+        if(($filter->getParameter('city') !== null)) {
+            $collection = array_filter($collection, fn(Station $model) =>
+                $model->getCity()->getName() === $filter->getParameter('city')
+            );
         }
 
         return $collection;

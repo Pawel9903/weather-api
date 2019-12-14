@@ -10,20 +10,36 @@ namespace App\Core\Dao\DaoCollectionParam;
 class DaoCollectionParam implements DaoCollectionParamInterface
 {
     /**
-     * @var array
+     * @var ParamElement
      */
-    private array $params = [
-        'route_param' => [],
-        'parameters' => [],
-        'filter' => [],
-    ];
+    private ParamElement $routeParams;
 
     /**
-     * @return array
+     * @var ParamElement
      */
-    public function getFilter(): array
+    private ParamElement $params;
+
+    /**
+     * @var ParamElement
+     */
+    private ParamElement $filter;
+
+    /**
+     * DaoCollectionParam constructor.
+     */
+    public function __construct()
     {
-        return $this->params['filter'];
+        $this->routeParams = new Param;
+        $this->params = new Param;
+        $this->filter = new Param;
+    }
+
+    /**
+     * @return ParamElement
+     */
+    public function getFilter(): ParamElement
+    {
+        return $this->filter;
     }
 
     /**
@@ -32,43 +48,43 @@ class DaoCollectionParam implements DaoCollectionParamInterface
      */
     public function setFilter(array $filter): self
     {
-        $this->params['filter'] = $filter;
+        $this->filter->setParams($filter);
         return $this;
     }
 
     /**
-     * @return array
+     * @return ParamElement
      */
-    public function getParameters(): array
+    public function getParameters(): ParamElement
     {
-        return $this->params['parameters'];
+        return $this->params;
     }
 
     /**
-     * @param array $parameters
+     * @param array $params
      * @return $this
      */
-    public function setParameters(array $parameters): DaoCollectionParamInterface
+    public function setParameters(array $params): self
     {
-        $this->params['parameters'] = $parameters;
+        $this->params->setParams($params);
         return $this;
     }
 
     /**
-     * @return array
+     * @return ParamElement
      */
-    public function getRouteParam(): array
+    public function getRouteParams(): ParamElement
     {
-        return $this->params['route_param'];
+        return $this->routeParams;
     }
 
     /**
-     * @param array $routeParam
+     * @param array $routeParams
      * @return $this
      */
-    public function setRouteParam(array $routeParam): DaoCollectionParamInterface
+    public function setRouteParams(array $routeParams): self
     {
-        $this->params['route_param'] = $routeParam;
+        $this->routeParams->setParams($routeParams);
         return $this;
     }
 
@@ -77,6 +93,10 @@ class DaoCollectionParam implements DaoCollectionParamInterface
      */
     public function getAll(): array
     {
-        $this->params;
+        return [
+            'route_param' => $this->routeParams,
+            'params' => $this->params,
+            'filter' => $this->filter,
+        ];
     }
 }

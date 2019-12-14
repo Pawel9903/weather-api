@@ -4,6 +4,7 @@ namespace App\Weather\Dao;
 
 use App\Core\Dao\DaoCollectionInterface;
 use App\Core\Dao\DaoCollectionParam\DaoCollectionParamInterface;
+use App\Core\Dao\DaoCollectionParam\ParamElement;
 use App\Weather\Curl\StationCurl;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\SensorTransformer;
@@ -37,8 +38,9 @@ class SensorDao implements DaoCollectionInterface
      */
     public function getData(?DaoCollectionParamInterface $params = null): array
     {
-        if(!empty($params->getRouteParam()['id'])) {
-            $data = $this->curl->sensorsByStationId((int) $params->getRouteParam()['id']);
+        $id = $params->getRouteParams()->getParameter('id');
+        if($id !== null) {
+            $data = $this->curl->sensorsByStationId((int) $id);
             return array_map([$this->transformer, 'transform'], $data);
         }
         return [];
@@ -46,10 +48,10 @@ class SensorDao implements DaoCollectionInterface
 
     /**
      * @param array $collection
-     * @param array $filter
+     * @param ParamElement $filter
      * @return array
      */
-    public function setFilters(array $collection, array $filter = []): array
+    public function setFilters(array $collection, ParamElement $filter): array
     {
         return $collection;
     }
