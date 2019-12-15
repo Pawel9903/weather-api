@@ -64,7 +64,7 @@ class AQSubstanceTransformer extends Transformer
         $model
             ->setName(!empty($data['name'])? $data['name'] : '')
             ->setCalcDate(!empty($data['calcDate']) && is_string($data['calcDate'])? new DateTime($data['calcDate']) : null)
-            ->setSourceData(!empty($data['sourceDate']) && is_string($data['calcDate'])? new DateTime($data['sourceDate']) : null)
+            ->setSourceDate(!empty($data['sourceDate']) && is_string($data['calcDate'])? new DateTime($data['sourceDate']) : null)
             ->setIndex($AQSubstanceIndex);
     }
 }

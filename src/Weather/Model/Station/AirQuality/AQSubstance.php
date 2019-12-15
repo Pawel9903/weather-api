@@ -24,7 +24,7 @@ class AQSubstance implements AQSubstanceInterface
      * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      * @Serializer\Groups({"min", "max"})
      */
-    private ?DateTime $sourceData = null;
+    private ?DateTime $sourceDate = null;
 
     /**
      * @var DateTime|null
@@ -61,18 +61,18 @@ class AQSubstance implements AQSubstanceInterface
     /**
      * @return DateTime|null
      */
-    public function getSourceData(): ?DateTime
+    public function getSourceDate(): ?DateTime
     {
-        return $this->sourceData;
+        return $this->sourceDate;
     }
 
     /**
-     * @param DateTime|null $sourceData
+     * @param DateTime|null $sourceDate
      * @return $this
      */
-    public function setSourceData(?DateTime $sourceData): self
+    public function setSourceDate(?DateTime $sourceDate): self
     {
-        $this->sourceData = $sourceData;
+        $this->sourceDate = $sourceDate;
         return $this;
     }
 

@@ -24,13 +24,13 @@ interface AQSubstanceInterface
     /**
      * @return DateTime|null
      */
-    public function getSourceData(): ?DateTime;
+    public function getSourceDate(): ?DateTime;
 
     /**
-     * @param DateTime|null $sourceData
+     * @param DateTime|null $sourceDate
      * @return $this
      */
-    public function setSourceData(?DateTime $sourceData): self;
+    public function setSourceDate(?DateTime $sourceDate): self;
 
     /**
      * @return DateTime|null
