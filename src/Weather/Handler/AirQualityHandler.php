@@ -26,7 +26,7 @@ class AirQualityHandler extends Handler
      */
     public function __construct(AirQualityDao $dao)
     {
-        parent::__construct()
+        parent::__construct();
         $this->dao = $dao;
     }
 

@@ -28,8 +28,8 @@ jobs:
       - name: Run unit test suite
         run: vendor/bin/codecept run unit
 
-      - name: Start server
-        run: php bin/console server:start 127.0.0.1:8000
+#      - name: Start server
+#        run: php bin/console server:start 127.0.0.1:8000
 
-      - name: Run api test suite
-        run: vendor/bin/codecept run api
+#      - name: Run api test suite
+#        run: vendor/bin/codecept run api
