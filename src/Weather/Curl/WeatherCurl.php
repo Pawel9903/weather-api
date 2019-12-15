@@ -39,7 +39,7 @@ class WeatherCurl extends Curl
      * @param int $id
      * @return array
      */
-    public function airConditionByStationId(int $id): array
+    public function airQualityByStationId(int $id): array
     {
         return $this->get("/aqindex/getIndex/{$id}");
     }

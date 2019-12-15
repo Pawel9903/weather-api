@@ -41,7 +41,7 @@ class AirQualityDao
      */
     public function getAirQualityByStationId(int $id): AirQuality
     {
-        $result = $this->curl->airConditionByStationId($id);
+        $result = $this->curl->airQualityByStationId($id);
         return $this->AQTransformer->transform($result);
     }
 }
