@@ -8,7 +8,7 @@ use App\Core\Transformer\Address\CityTransformer;
 use App\Core\Transformer\Address\CommuneTransformer;
 use App\Core\Transformer\GeoJson\GeoJsonTransformer;
 use App\Core\Transformer\GeoJson\GeometryTransformer;
-use App\Weather\Curl\StationCurl;
+use App\Weather\Curl\WeatherCurl;
 use App\Weather\Dao\StationDao;
 use App\Weather\Model\Station\Station;
 use App\Weather\Transformer\Station\StationTransformer;
@@ -29,9 +29,9 @@ class StationDaoTest extends Unit
     protected UnitTester $tester;
 
     /**
-     * @var StationCurl|Mockery\LegacyMockInterface|Mockery\MockInterface
+     * @var WeatherCurl|Mockery\LegacyMockInterface|Mockery\MockInterface
      */
-    private StationCurl $curl;
+    private WeatherCurl $curl;
 
     /**
      * @var StationDao
@@ -40,7 +40,7 @@ class StationDaoTest extends Unit
 
     protected function _before()
     {
-        $this->curl = Mockery::mock(StationCurl::class);
+        $this->curl = Mockery::mock(WeatherCurl::class);
         $this->dao = new StationDao($this->curl);
     }
 

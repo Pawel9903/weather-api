@@ -39,10 +39,10 @@ class SensorHandler extends Handler
     }
 
     /**
-     * @param Request $request
+     * @param Request|null $request
      * @return $this
      */
-    protected function processing(Request $request): self
+    protected function processing(Request $request = null): self
     {
         $this->table->setParams($request);
         return $this;

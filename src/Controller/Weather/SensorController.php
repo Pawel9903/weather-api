@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class SensorController
  * @package App\Controller\Weather
  * @author Pawel Ged <pawelged9903@gmail.com>
- * @Rest\Route("/stations/{id}/sensors", name="sensors_")
+ * @Rest\Route("/stations/{id}", name="stations_sensors_")
  */
 class SensorController extends AbstractFOSRestController
 {
@@ -22,7 +22,7 @@ class SensorController extends AbstractFOSRestController
      * @param Request $request
      * @param SensorHandler $handler
      * @return View
-     * @Rest\Get(path="/", name="list")
+     * @Rest\Get(path="/sensors/", name="list")
      * @Serializer\Groups({"min"})
      */
     public function sensors(Request $request, SensorHandler $handler): View

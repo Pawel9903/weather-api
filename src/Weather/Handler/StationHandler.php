@@ -55,10 +55,10 @@ class StationHandler extends Handler
     }
 
     /**
-     * @param Request $request
+     * @param Request|null $request
      * @return $this
      */
-    protected function processing(Request $request): self
+    protected function processing(Request $request = null): self
     {
         $this->select->setParams($request);
         $this->table->setParams($request);

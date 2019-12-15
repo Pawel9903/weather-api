@@ -5,11 +5,11 @@ namespace App\Weather\Curl;
 use App\Core\Curl\Curl;
 
 /**
- * Class StationCurl
+ * Class WeatherCurl
  * @package App\Weather\Curl
  * @author Pawel Ged <pawelged9903@gmail.com>
  */
-class StationCurl extends Curl
+class WeatherCurl extends Curl
 {
 
     public function __construct()
@@ -23,7 +23,7 @@ class StationCurl extends Curl
      */
     public function stations(): array
     {
-        return $this->get('findAll');
+        return $this->get('/station/findAll');
     }
 
     /**
@@ -32,6 +32,15 @@ class StationCurl extends Curl
      */
     public function sensorsByStationId(int $id): array
     {
-        return $this->get("sensors/{$id}");
+        return $this->get("/station/sensors/{$id}");
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function airConditionByStationId(int $id): array
+    {
+        return $this->get("/aqindex/getIndex/{$id}");
     }
 }
