@@ -34,7 +34,7 @@ class StationController extends AbstractFOSRestController
      * @param Request $request
      * @param StationHandler $handler
      * @return View
-     * @Rest\Get(path="/select", name="select")
+     * @Rest\Get(path="/select/", name="select")
      */
     public function select(Request $request, StationHandler $handler): View
     {

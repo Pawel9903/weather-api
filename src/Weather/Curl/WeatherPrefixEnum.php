@@ -9,5 +9,5 @@ namespace App\Weather\Curl;
  */
 abstract class WeatherPrefixEnum
 {
-    const STATION_PREFIX = 'pjp-api/rest/station';
+    const STATION_PREFIX = 'pjp-api/rest';
 }

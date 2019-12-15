@@ -2,7 +2,7 @@
 
 namespace tests\unit;
 
-use App\Weather\Curl\StationCurl;
+use App\Weather\Curl\WeatherCurl;
 use App\Weather\Dao\StationDao;
 use App\Weather\Dao\Table\StationTable;
 use App\Weather\Model\Station\Station;
@@ -25,9 +25,9 @@ class StationTableTest extends Unit
     protected UnitTester $tester;
 
     /**
-     * @var StationCurl|Mockery\LegacyMockInterface|Mockery\MockInterface
+     * @var WeatherCurl|Mockery\LegacyMockInterface|Mockery\MockInterface
      */
-    private StationCurl $curl;
+    private WeatherCurl $curl;
 
     /**
      * @var StationDao
@@ -53,7 +53,7 @@ class StationTableTest extends Unit
      */
     protected function _before()
     {
-        $this->curl = Mockery::mock(StationCurl::class);
+        $this->curl = Mockery::mock(WeatherCurl::class);
         $this->request = Mockery::mock(Request::class);
         $this->dao = new StationDao($this->curl);
         $this->table = new StationTable($this->dao);

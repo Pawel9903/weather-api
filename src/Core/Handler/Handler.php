@@ -42,5 +42,10 @@ abstract class Handler
         }
         return $processed;
     }
-    abstract protected function processing(Request $request);
+
+    /**
+     * @param Request|null $request
+     * @return mixed
+     */
+    abstract protected function processing(Request $request = null);
 }
