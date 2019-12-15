@@ -5,6 +5,8 @@
 
 > Platform providing weather air quality information.
 
+![Screenshot](screenshot.png)
+
 [Link to FRONT repository](https://github.com/Pawel9903/weather-front)
 
 ## Install
