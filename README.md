@@ -10,7 +10,7 @@
 ## Install
 
 ```sh
-npm install
+composer install
 ```
 
 ## Author
